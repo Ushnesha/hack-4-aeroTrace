@@ -1,7 +1,10 @@
 VENV := .venv
 BIN := $(VENV)/bin
 
-.PHONY: install check fmt demo ui
+.PHONY: install check fmt demo ui api
+
+api:
+	$(BIN)/uvicorn aerotrace.api.main:app --reload
 
 install:
 	uv venv --python 3.11 $(VENV)

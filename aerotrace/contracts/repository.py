@@ -36,6 +36,7 @@ class GraphRepository(Protocol):
     def find_symbols(
         self, run_id: str, query: str, kinds: list[NodeKind] | None = None, limit: int = 20
     ) -> list[Node]: ...
+    #   a blank query with `kinds` lists every symbol of those kinds (used for overview counts)
     def edges_from(
         self, run_id: str, node_id: str, types: list[EdgeType] | None = None
     ) -> list[Edge]: ...

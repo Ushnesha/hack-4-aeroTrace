@@ -182,15 +182,17 @@ class FakeGraphRepository:
         """Case-insensitive substring search on name / qualified_name.
 
         Exact name matches come first, then alphabetical. Returns at most ``limit`` nodes.
+        A blank query with ``kinds`` lists every symbol of those kinds; a blank query without
+        ``kinds`` returns nothing.
         """
         q = query.strip().lower()
-        if not q:
+        if not q and not kinds:
             return []
         hits = [
             n
             for n in self._run(run_id).nodes.values()
             if (kinds is None or n.kind in kinds)
-            and (q in n.name.lower() or q in n.qualified_name.lower())
+            and (not q or q in n.name.lower() or q in n.qualified_name.lower())
         ]
         hits.sort(key=lambda n: (n.name.lower() != q, n.name, n.id))
         return hits[: max(limit, 0)]

@@ -1,0 +1,5 @@
+-r requirements/base.txt
+-r requirements/analysis.txt
+-r requirements/graph.txt
+-r requirements/narrative.txt
+-r requirements/app.txt

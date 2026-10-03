@@ -210,6 +210,11 @@ def test_find_symbols_and_get_node(repo: FakeGraphRepository, ncm: NormalizedCod
     assert [n.name for n in repo.find_symbols(run_id, "nav", kinds=["Variable"])] == ["g_nav_state"]
     assert len(repo.find_symbols(run_id, "nav", limit=2)) == 2
     assert repo.find_symbols(run_id, "  ") == []
+    assert repo.find_symbols(run_id, "", limit=5) == []  # blank without kinds: nothing
+    externals = repo.find_symbols(run_id, "", kinds=["ExternalSymbol"])
+    assert [n.name for n in externals] == ["ctx->on_done"]
+    functions = repo.find_symbols(run_id, "  ", kinds=["Function"], limit=100)
+    assert len(functions) == 7 and functions == sorted(functions, key=lambda n: (n.name, n.id))
 
 
 def test_edges_and_evidence(repo: FakeGraphRepository, ncm: NormalizedCodeModel) -> None:

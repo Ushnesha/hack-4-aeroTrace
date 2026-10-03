@@ -7,7 +7,7 @@ api:
 	$(BIN)/uvicorn aerotrace.api.main:app --reload
 
 install:
-	uv venv --python 3.11 $(VENV)
+	test -d $(VENV) || uv venv --python 3.11 $(VENV)
 	uv pip install --python $(BIN)/python -r requirements.txt -e .
 
 check:

@@ -1,1 +1,4 @@
 # app stream dependencies (owned by the app stream)
+fastapi
+uvicorn
+httpx
